@@ -6,7 +6,8 @@
 
 :root {
   /* background color */
-  --bg-primary-color: #19183b;
+  --bg-primary-color: #09122c;
+  --bg-fill-color: #fdfdfc;
 
   /* text-primary-color */
   --text-primary-color: #faf8f1;
@@ -70,16 +71,25 @@ section .infos {
   border-radius: var(--border-radius-sm);
 }
 
-.board{
-    border: 1px solid var(--border-primary-color );
-    flex-grow: 1;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 20px);
-    grid-template-rows: repeat(auto-fill, 20px);
+.board {
+  border: 1px solid var(--border-primary-color);
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(40px, 1fr));
 }
 
-.block{
-    width: 20px;
-    height: 20px;
-    border: 1px solid var(--border-primary-color);
+.block {
+  /* width: 20px;
+    height: 20px; */
+  border: 1px solid var(--border-primary-color);
+  text-align: center;
+
+  display: flex;
+  align-items: center; /* vertical center */
+  justify-content: center; /* horizontal center */
+}
+
+.fill {
+  background-color: var(--bg-fill-color);
 }
