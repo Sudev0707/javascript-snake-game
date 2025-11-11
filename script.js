@@ -1,4 +1,11 @@
 const board = document.querySelector(".board");
+const startButton = document.querySelector(".btn-start");
+const restartButton = document.querySelector(".btn-restart");
+const modal = document.querySelector(".modal");
+
+const startModal = document.querySelector(".start-game");
+const gameOverModal = document.querySelector(".game-over");
+
 const blockHeight = 40;
 const blockWidth = 40;
 
@@ -59,7 +66,7 @@ function render() {
     clearInterval(interval);
   }
 
-//   
+  //
   if (head.x == food.x && head.y == food.y) {
     blocks[`${food.x}-${food.y}`].classList.remove("food");
 
@@ -87,9 +94,18 @@ function render() {
 }
 
 //
-interval = setInterval(() => {
-  render();
-}, 300);
+// interval = setInterval(() => {
+//   render();
+// }, 300);
+
+startButton.addEventListener("click", () => {
+  modal.style.display = "none";
+  interval = setInterval(() => {
+    render();
+  }, 300);
+});
+
+function restartGame() {}
 
 addEventListener("keydown", (event) => {
   console.log(event.key);
