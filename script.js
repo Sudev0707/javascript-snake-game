@@ -10,12 +10,14 @@ const highScoreElement = document.querySelector("#high-score");
 const scoreElement = document.querySelector("#score");
 const timeElement = document.querySelector("#time");
 
-const blockHeight = 40;
-const blockWidth = 40;
+const blockHeight = 30;
+const blockWidth = 30;
 
-let highScore = 0;
+let highScore = localStorage.getItem("highScore") || 0;
 let score = 0;
-let time = "00-00";
+let time = `00-00`;
+
+highScoreElement.innerText = highScore;
 
 const rows = Math.floor(board.clientHeight / blockHeight);
 const cols = Math.floor(board.clientWidth / blockWidth);
@@ -33,6 +35,8 @@ const blocks = [];
 let snake = [{ x: 1, y: 3 }];
 let direction = "down";
 let interval = null;
+let timerInterval = null;
+
 let food = {
   x: Math.floor(Math.random() * rows),
   y: Math.floor(Math.random() * cols),
@@ -119,6 +123,19 @@ startButton.addEventListener("click", () => {
   interval = setInterval(() => {
     render();
   }, 300);
+  timerInterval = setInterval(() => {
+    let [min, sec] = time.split("-").map(Number);
+
+    if (sec == 59) {
+      min += 1;
+      sec = 0;
+    } else {
+      sec += 1;
+    }
+
+    time = `${min}-${sec}`;
+    timeElement.innerText = time;
+  }, 1000);
 });
 
 restartButton.addEventListener("click", restartGame);
@@ -128,6 +145,12 @@ function restartGame() {
   snake.forEach((segment) => {
     blocks[`${segment.x}-${segment.y}`].classList.remove("fill");
   });
+
+  score = 0;
+  time = `00-00`;
+  scoreElement.innerText = score;
+  timeElement.innerText = time;
+  highScoreElement.innerText = highScore;
 
   modal.style.display = "none";
   direction = "down";
